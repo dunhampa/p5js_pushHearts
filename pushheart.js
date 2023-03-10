@@ -1,11 +1,9 @@
-// quick touch event demo
-// ben grosser
-// ARTS 444 @ univ. of illinois
-
 let bg = 0;
 let sat = 50;
 let touchended = false;
 let touchstarted = false;
+let promptVisible = true;
+let firstTimeOut=true;
 
 function setup() {
   createCanvas(windowWidth,windowHeight);
@@ -16,13 +14,34 @@ function setup() {
 }
 
 function draw() {
+  //if (!promptVisible) {
   
-  //background(bg,sat,100);
-   //ellipse(mouseX, mouseY, 80, 80);
-  
-  // for every touch event in the touches[], draw an ellipse
-  // (IOW draw a circle for every finger tip touching screen)
-  // do this first so info text goes *over* the ellipses
+      //fill(255);
+    //text("Click to make heartsffff", width/2, height/2);
+    //fill(0);
+
+  if(promptVisible)
+  {
+    textSize(55)
+    text("Click to make hearts", width/2, height/2);
+    console.log(promptVisible)
+    //text(promptVisible.toString(), width/2, height/2);
+  }
+   
+  else{
+
+    if(firstTimeOut){
+      firstTimeOut=false;
+      console.log("holler")
+      clear();
+
+
+    }
+
+  }
+
+  console.log(promptVisible)
+
   for(let i = 0; i < touches.length; i++) {
     ellipse(mouseX,mouseY,250, 250);
     var HeartSize=6
@@ -44,10 +63,11 @@ function draw() {
   for (t=0; t<=2*PI; t+=0.0001){
   vertex((-16*HeartSize*pow(sin(t), 3))+mouseX, (-(13*HeartSize*cos(t)-5*HeartSize*cos(2*t)-2*HeartSize*cos(3*t)-HeartSize*cos(4*t)-mouseY)))
   }
+  promptVisible=false
   endShape();
   }
      
-  
+  //if(touchstarted
   
   // notify when touch event has ended
   if(touchended & false) text("touch is NO", width/2,height/2);
@@ -60,9 +80,9 @@ function draw() {
     text("touches detected: "+touches.length, width/2, height/2+90);
   }
   
-  
-  
 }
+
+
 
 
 // called at the beginning of a touch event
@@ -70,6 +90,7 @@ function draw() {
 function touchStarted() {
   touchstarted = true;
   touchended = false;
+  promptVisible = false;
   return false;
 }
 
@@ -101,3 +122,8 @@ function touchEnded() {
     touchstarted = false;
   }
 }
+
+
+
+
+
